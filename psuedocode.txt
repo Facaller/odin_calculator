@@ -1,0 +1,9 @@
+*** Psuedocode ***
+
+** Polulate the display for the calculator after button click **
+1 - Add event listener for buttons (numbers and operators)
+2 - Clicked button number value should be stored
+3 - Stored value should be shown on calculator display
+4 - Stored value should be saved for calculation 
+5 - Clicked operator should be shown on display, clearing initial numbers
+6 - New clicked button number value should be shown on display, clearing previous operatior from display
