@@ -1,24 +1,40 @@
 //open variables
-let varOne;
-let varTwo;
+let varOne = 0;
+let varTwo = 0;
 let operator;
 
 //event listeners & variables
+// storing values in display
+let bigDisplay = document.querySelector('.big-display');
+
 let nums = document.querySelectorAll('.num');
 nums.forEach(num => {
     num.addEventListener('click', () => {
-        bigDisplay.textContent += num.textContent
+        let numValue = parseFloat(num.textContent)
+        bigDisplay.textContent += num.textContent;
+        if (varOne === 0) {
+            varOne += numValue
+        }
+        console.log(varOne)
     });
 });
 
 let ops = document.querySelectorAll('.op');
 ops.forEach(op => {
     op.addEventListener('click', () => {
-        console.log('operator');
+        bigDisplay.textContent += op.textContent;
     });
 });
 
-let bigDisplay = document.querySelector('.big-display');
+let equal = document.querySelector('.equal');
+equal.addEventListener('click', () => {
+
+});
+
+let clear = document.querySelector('.clear');
+clear.addEventListener('click', () => {
+    bigDisplay.textContent = '';
+})
 
 //operations and equations
 //basic equations
@@ -47,6 +63,5 @@ function operate (varOne, operator, varTwo) {
         return divide(varOne, varTwo)
     }
 }
-// storing value in display
 
 console.log(operate(5, '/', 5))
