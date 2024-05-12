@@ -1,28 +1,39 @@
 //open variables
-let varOne = 0;
-let varTwo = 0;
+let varOne;
+let varTwo;
 let operator;
 
 //event listeners & variables
 // storing values in display
 let bigDisplay = document.querySelector('.big-display');
 
+function clearDisplay () {
+    bigDisplay.textContent = '';
+}
+
+function updateDisplay (text) {
+    if (varOne === 'undefined') {
+        clearDisplay();
+        varOne = text;
+    } else {
+        bigDisplay.textContent += text
+    }
+    
+};
+
 let nums = document.querySelectorAll('.num');
 nums.forEach(num => {
     num.addEventListener('click', () => {
         let numValue = parseFloat(num.textContent)
-        bigDisplay.textContent += num.textContent;
-        if (varOne === 0) {
-            varOne += numValue
-        }
-        console.log(varOne)
+        parseFloat(updateDisplay(numValue))
+        
     });
 });
 
 let ops = document.querySelectorAll('.op');
 ops.forEach(op => {
     op.addEventListener('click', () => {
-        bigDisplay.textContent += op.textContent;
+        bigDisplay.textContent = op.textContent;
     });
 });
 
