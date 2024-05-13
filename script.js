@@ -4,28 +4,13 @@ let varTwo;
 let operator;
 
 //event listeners & variables
-// storing values in display
 let bigDisplay = document.querySelector('.big-display');
-
-function clearDisplay () {
-    bigDisplay.textContent = '';
-}
-
-function updateDisplay (text) {
-    if (varOne === 'undefined') {
-        clearDisplay();
-        varOne = text;
-    } else {
-        bigDisplay.textContent += text
-    }
-    
-};
 
 let nums = document.querySelectorAll('.num');
 nums.forEach(num => {
     num.addEventListener('click', () => {
         let numValue = parseFloat(num.textContent)
-        parseFloat(updateDisplay(numValue))
+        updateDisplay(numValue)
         
     });
 });
@@ -45,14 +30,30 @@ equal.addEventListener('click', () => {
 let clear = document.querySelector('.clear');
 clear.addEventListener('click', () => {
     bigDisplay.textContent = '';
-})
+});
+
+// storing values in display
+function clearDisplay (text) {
+    bigDisplay.textContent = '';
+    bigDisplay.textContent += text;
+};
+
+function updateDisplay (text) {
+    if (varOne === undefined) {
+        clearDisplay(text);
+        varOne = bigDisplay.textContent;
+    } else {
+        bigDisplay.textContent += text
+        varOne = parseFloat(bigDisplay.textContent);
+        console.log(varOne)
+    }
+};
 
 //operations and equations
 //basic equations
 function add (a, b) {
     return a + b
 };
-
 function subtract (a, b) {
     return a - b
 };
@@ -62,6 +63,7 @@ function multiply (a, b) {
 function divide (a, b) {
     return a / b
 };
+
 //calculation operation
 function operate (varOne, operator, varTwo) {
     if (operator === '+') {
