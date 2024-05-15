@@ -1,24 +1,32 @@
-//open variables
+//variables
 let varOne;
 let varTwo;
 let operator;
 
-//event listeners & variables
+let varOneFlag = false;
+let varTwoFlag = false;
+let operatorFlag = false;
+
+//event listeners & html elements
 let bigDisplay = document.querySelector('.big-display');
 
 let nums = document.querySelectorAll('.num');
 nums.forEach(num => {
     num.addEventListener('click', () => {
-        let numValue = parseFloat(num.textContent)
-        updateDisplay(numValue)
-        
+        let numValue = parseFloat(num.textContent);
+        if (operatorFlag === false) {
+            updateVarOne(numValue)
+        } else if (operatorFlag === true) {
+            updateVarTwo(numValue)
+        }
     });
 });
 
 let ops = document.querySelectorAll('.op');
 ops.forEach(op => {
     op.addEventListener('click', () => {
-        bigDisplay.textContent = op.textContent;
+        let opValue = op.textContent
+        useOperator (opValue);
     });
 });
 
@@ -38,15 +46,36 @@ function clearDisplay (text) {
     bigDisplay.textContent += text;
 };
 
-function updateDisplay (text) {
+function updateVarOne (varOneText) {
     if (varOne === undefined) {
-        clearDisplay(text);
-        varOne = bigDisplay.textContent;
-    } else {
-        bigDisplay.textContent += text
+        clearDisplay(varOneText);
+        varOne = bigDisplay.textContent;        
+    } else if (varOne !== undefined) {
+        bigDisplay.textContent += varOneText
         varOne = parseFloat(bigDisplay.textContent);
-        console.log(varOne)
+        console.log(`varOne: ${varOne}`)
     }
+};
+
+function updateVarTwo (varTwoText) {
+    if (varTwo === undefined) {
+        clearDisplay(varTwoText);
+        varTwo = bigDisplay.textContent;        
+    } else if (varTwo !== undefined) {
+        bigDisplay.textContent += varTwoText
+        varTwo = parseFloat(bigDisplay.textContent);
+        console.log(`varTwo: ${varTwo}`)
+    }
+};
+
+function useOperator (mathOp) {
+    if (operator === undefined) {
+        operatorFlag = true;
+        bigDisplay.textContent = mathOp;
+        operator = mathOp
+        console.log(`Mathop: ${operator}`)
+    }
+    
 };
 
 //operations and equations
