@@ -9,6 +9,7 @@ let operatorFlag = false;
 
 //event listeners & html elements
 let bigDisplay = document.querySelector('.big-display');
+let smallDisplay = document.querySelector('.small-display');
 
 let nums = document.querySelectorAll('.num');
 nums.forEach(num => {
@@ -32,7 +33,9 @@ ops.forEach(op => {
 
 let equal = document.querySelector('.equal');
 equal.addEventListener('click', () => {
-
+    
+    bigDisplay.textContent = operate (varOne, operator, varTwo);
+    clearVars ();
 });
 
 let clear = document.querySelector('.clear');
@@ -40,7 +43,7 @@ clear.addEventListener('click', () => {
     bigDisplay.textContent = '';
 });
 
-// storing values in display
+// variables and operators in display
 function clearDisplay (text) {
     bigDisplay.textContent = '';
     bigDisplay.textContent += text;
@@ -75,7 +78,13 @@ function useOperator (mathOp) {
         operator = mathOp
         console.log(`Mathop: ${operator}`)
     }
-    
+};
+
+function clearVars () {
+    varOne = undefined;
+    varTwo = undefined;
+    operator = undefined;
+    operatorFlag = false;
 };
 
 //operations and equations
@@ -96,14 +105,14 @@ function divide (a, b) {
 //calculation operation
 function operate (varOne, operator, varTwo) {
     if (operator === '+') {
-        return add(varOne, varTwo)
+        return add(varOne, varTwo);
     } else if ( operator === '-') {
-        return subtract(varOne, varTwo)
+        return subtract(varOne, varTwo);
     } else if ( operator === '*') {
-        return multiply(varOne, varTwo)
+        return multiply(varOne, varTwo);
     } else if ( operator === '/') {
-        return divide(varOne, varTwo)
+        return divide(varOne, varTwo);
     }
-}
+};
 
 console.log(operate(5, '/', 5))
