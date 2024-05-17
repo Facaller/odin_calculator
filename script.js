@@ -1,4 +1,4 @@
-//variables
+//variables & booleans
 let varOne;
 let varTwo;
 let operator;
@@ -26,8 +26,9 @@ nums.forEach(num => {
 let ops = document.querySelectorAll('.op');
 ops.forEach(op => {
     op.addEventListener('click', () => {
-        let opValue = op.textContent
+        let opValue = op.dataset.operator
         useOperator (opValue);
+        bigDisplay.textContent = op.textContent;
     });
 });
 
@@ -74,7 +75,6 @@ function updateVarTwo (varTwoText) {
 function useOperator (mathOp) {
     if (operator === undefined) {
         operatorFlag = true;
-        bigDisplay.textContent = mathOp;
         operator = mathOp
         console.log(`Mathop: ${operator}`)
     }
@@ -106,11 +106,11 @@ function divide (a, b) {
 function operate (varOne, operator, varTwo) {
     if (operator === '+') {
         return add(varOne, varTwo);
-    } else if ( operator === '-') {
+    } else if (operator === '-') {
         return subtract(varOne, varTwo);
-    } else if ( operator === '*') {
+    } else if (operator === '*') {
         return multiply(varOne, varTwo);
-    } else if ( operator === '/') {
+    } else if (operator === '/') {
         return divide(varOne, varTwo);
     }
 };
