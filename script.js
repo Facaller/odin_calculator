@@ -10,14 +10,16 @@ let operatorFlag = false;
 //event listeners & html elements
 let bigDisplay = document.querySelector('.big-display');
 let smallDisplay = document.querySelector('.small-display');
-
+// figure out solution with flags, don't forget to toggle them on and off
 let nums = document.querySelectorAll('.num');
 nums.forEach(num => {
     num.addEventListener('click', () => {
         let numValue = parseFloat(num.textContent);
         if (operatorFlag === false) {
             updateVarOne(numValue)
-        } else if (operatorFlag === true) {
+        } else if (operatorFlag === true && varOneFlag === true) {
+            updateVarOne(numValue)
+        } else if (operatorFlag === true && varTwoFlag === false) {
             updateVarTwo(numValue)
         }
     });
