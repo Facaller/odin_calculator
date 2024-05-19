@@ -10,16 +10,14 @@ let operatorFlag = false;
 //event listeners & html elements
 let bigDisplay = document.querySelector('.big-display');
 let smallDisplay = document.querySelector('.small-display');
-// figure out solution with flags, don't forget to toggle them on and off
+
 let nums = document.querySelectorAll('.num');
 nums.forEach(num => {
     num.addEventListener('click', () => {
         let numValue = parseFloat(num.textContent);
         if (operatorFlag === false) {
             updateVarOne(numValue)
-        } else if (operatorFlag === true && varOneFlag === true) {
-            updateVarOne(numValue)
-        } else if (operatorFlag === true && varTwoFlag === false) {
+        } else if (operatorFlag === true) {
             updateVarTwo(numValue)
         }
     });
@@ -59,6 +57,7 @@ function updateVarOne (varOneText) {
     } else if (varOne !== undefined) {
         bigDisplay.textContent += varOneText
         varOne = parseFloat(bigDisplay.textContent);
+        varOneFlag = false;
         console.log(`varOne: ${varOne}`)
     }
 };
@@ -79,6 +78,12 @@ function useOperator (mathOp) {
         operatorFlag = true;
         operator = mathOp
         console.log(`Mathop: ${operator}`)
+    } else if (operator !== undefined && varOne !== undefined) {
+        operatorFlag = true;
+        operator = mathOp;
+        if (varTwo !== undefined) {
+            varOne = varTwo;
+        }
     }
 };
 
