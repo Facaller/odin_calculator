@@ -57,7 +57,6 @@ function updateVarOne (varOneText) {
     } else if (varOne !== undefined) {
         bigDisplay.textContent += varOneText
         varOne = parseFloat(bigDisplay.textContent);
-        varOneFlag = false;
         console.log(`varOne: ${varOne}`)
     }
 };
@@ -78,14 +77,18 @@ function useOperator (mathOp) {
         operatorFlag = true;
         operator = mathOp
         console.log(`Mathop: ${operator}`)
-    } else if (operator !== undefined && varOne !== undefined) {
-        operatorFlag = true;
+    } else if (operator !== undefined) {
         operator = mathOp;
-        if (varTwo !== undefined) {
-            varOne = varTwo;
+        if (varOne !== undefined) {
+            operatorFlag = false
+        } else if ( varTwo !== undefined) {
+            operatorFlag = true
         }
     }
 };
+function continueCalc () {
+    
+}
 
 function clearVars () {
     varOne = undefined;
