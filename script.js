@@ -28,13 +28,14 @@ ops.forEach(op => {
     op.addEventListener('click', () => {
         let opValue = op.dataset.operator
         useOperator (opValue);
-        bigDisplay.textContent = op.textContent;
+        if (varOne !== undefined && varTwo !== undefined) {
+            continueCalc();
+        }
     });
 });
 
 let equal = document.querySelector('.equal');
 equal.addEventListener('click', () => {
-    
     bigDisplay.textContent = operate (varOne, operator, varTwo);
     clearVars ();
 });
@@ -53,7 +54,8 @@ function clearDisplay (text) {
 function updateVarOne (varOneText) {
     if (varOne === undefined) {
         clearDisplay(varOneText);
-        varOne = bigDisplay.textContent;        
+        varOne = parseFloat(bigDisplay.textContent);
+        console.log(`varOne: ${varOne}`)
     } else if (varOne !== undefined) {
         bigDisplay.textContent += varOneText
         varOne = parseFloat(bigDisplay.textContent);
@@ -64,31 +66,34 @@ function updateVarOne (varOneText) {
 function updateVarTwo (varTwoText) {
     if (varTwo === undefined) {
         clearDisplay(varTwoText);
-        varTwo = bigDisplay.textContent;        
+        varTwo = parseFloat(bigDisplay.textContent);
+        console.log(`varTwo: ${varTwo}`)
     } else if (varTwo !== undefined) {
         bigDisplay.textContent += varTwoText
         varTwo = parseFloat(bigDisplay.textContent);
         console.log(`varTwo: ${varTwo}`)
     }
 };
-
+//need a second condition at else just to be safe (for multiple clicks on operators)
 function useOperator (mathOp) {
     if (operator === undefined) {
         operatorFlag = true;
         operator = mathOp
         console.log(`Mathop: ${operator}`)
     } else if (operator !== undefined) {
+        operator = undefined;
         operator = mathOp;
-        if (varOne !== undefined) {
-            operatorFlag = false
-        } else if ( varTwo !== undefined) {
-            operatorFlag = true
-        }
+        console.log(`Mathop: ${operator}`)
     }
 };
+//no operators on bigdisplay. Check code for this
+// is using second operator click to get answer. fix this.
 function continueCalc () {
-    
-}
+    if (operator !== undefined && varOne !== undefined && varTwo !== undefined) {
+        bigDisplay.textContent = operate (varOne, operator, varTwo);
+        varOne = parseFloat(bigDisplay.textContent);
+    }
+};
 
 function clearVars () {
     varOne = undefined;
@@ -113,15 +118,15 @@ function divide (a, b) {
 };
 
 //calculation operation
-function operate (varOne, operator, varTwo) {
+function operate (valueOne, operator, valueTwo) {
     if (operator === '+') {
-        return add(varOne, varTwo);
+        return add(valueOne, valueTwo);
     } else if (operator === '-') {
-        return subtract(varOne, varTwo);
+        return subtract(valueOne, valueTwo);
     } else if (operator === '*') {
-        return multiply(varOne, varTwo);
+        return multiply(valueOne, valueTwo);
     } else if (operator === '/') {
-        return divide(varOne, varTwo);
+        return divide(valueOne, valueTwo);
     }
 };
 
