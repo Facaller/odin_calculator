@@ -28,9 +28,7 @@ ops.forEach(op => {
     op.addEventListener('click', () => {
         let opValue = op.dataset.operator
         useOperator (opValue);
-        if (varOne !== undefined && varTwo !== undefined) {
-            continueCalc();
-        }
+        
     });
 });
 
@@ -81,13 +79,15 @@ function useOperator (mathOp) {
         operator = mathOp
         console.log(`Mathop: ${operator}`)
     } else if (operator !== undefined) {
+        continueCalc ()
         operator = undefined;
         operator = mathOp;
         console.log(`Mathop: ${operator}`)
     }
 };
 //no operators on bigdisplay. Check code for this
-// is using second operator click to get answer. fix this.
+// varTwo = parseFloat(varTwoText);
+// bigDisplay.textContent = varTwo
 function continueCalc () {
     if (operator !== undefined && varOne !== undefined && varTwo !== undefined) {
         bigDisplay.textContent = operate (varOne, operator, varTwo);
