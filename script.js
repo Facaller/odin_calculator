@@ -28,19 +28,18 @@ ops.forEach(op => {
     op.addEventListener('click', () => {
         let opValue = op.dataset.operator
         useOperator (opValue);
-        
     });
 });
 
 let equal = document.querySelector('.equal');
 equal.addEventListener('click', () => {
     bigDisplay.textContent = operate (varOne, operator, varTwo);
-    clearVars ();
 });
 
 let clear = document.querySelector('.clear');
 clear.addEventListener('click', () => {
     bigDisplay.textContent = '';
+    clearVars ();
 });
 
 // variables and operators in display
@@ -80,19 +79,18 @@ function useOperator (mathOp) {
         console.log(`Mathop: ${operator}`)
     } else if (operator !== undefined) {
         continueCalc ()
-        operator = undefined;
+        operator = undefined
         operator = mathOp;
         console.log(`Mathop: ${operator}`)
     }
 };
-//no operators on bigdisplay. Check code for this
-// varTwo = parseFloat(varTwoText);
-// bigDisplay.textContent = varTwo
+
 function continueCalc () {
     if (operator !== undefined && varOne !== undefined && varTwo !== undefined) {
         bigDisplay.textContent = operate (varOne, operator, varTwo);
         varOne = parseFloat(bigDisplay.textContent);
-    }
+        varTwo = undefined;
+    }    
 };
 
 function clearVars () {
