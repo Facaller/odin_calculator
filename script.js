@@ -3,8 +3,7 @@ let varOne;
 let varTwo;
 let operator;
 
-let varOneFlag = false;
-let varTwoFlag = false;
+let maxChars = 12;
 let operatorFlag = false;
 
 //event listeners & html elements
@@ -33,7 +32,9 @@ ops.forEach(op => {
 
 let equal = document.querySelector('.equal');
 equal.addEventListener('click', () => {
-    bigDisplay.textContent = operate (varOne, operator, varTwo);
+    if (varOne !== undefined && operator !== undefined && varTwo !== undefined) {
+        bigDisplay.textContent = operate (varOne, operator, varTwo);
+    }
 });
 
 let clear = document.querySelector('.clear');
@@ -46,6 +47,12 @@ clear.addEventListener('click', () => {
 function clearDisplay (text) {
     bigDisplay.textContent = '';
     bigDisplay.textContent += text;
+};
+
+function limitCharsDisplay (maxValue) {
+    if (maxValue.legnth > maxChars) {
+        maxValue = maxValue.substring(0, maxChars);
+    }
 };
 
 function updateVarOne (varOneText) {
@@ -118,13 +125,13 @@ function divide (a, b) {
 //calculation operation
 function operate (valueOne, operator, valueTwo) {
     if (operator === '+') {
-        return add(valueOne, valueTwo);
+        return parseFloat(add(valueOne, valueTwo).toFixed(7));
     } else if (operator === '-') {
-        return subtract(valueOne, valueTwo);
+        return parseFloat(subtract(valueOne, valueTwo).toFixed(7));
     } else if (operator === '*') {
-        return multiply(valueOne, valueTwo);
+        return parseFloat(multiply(valueOne, valueTwo).toFixed(7));
     } else if (operator === '/') {
-        return divide(valueOne, valueTwo);
+        return parseFloat(divide(valueOne, valueTwo).toFixed(7));
     }
 };
 
