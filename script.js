@@ -50,7 +50,7 @@ function clearDisplay (text) {
 };
 
 function limitCharsDisplay (maxValue) {
-    if (maxValue.legnth > maxChars) {
+    if (maxValue.length > maxChars) {
         maxValue = maxValue.substring(0, maxChars);
     }
 };
@@ -59,10 +59,16 @@ function updateVarOne (varOneText) {
     if (varOne === undefined) {
         clearDisplay(varOneText);
         varOne = parseFloat(bigDisplay.textContent);
+        varOne = varOne.toString();
+        limitCharsDisplay(varOne);
+        varOne = parseFloat(varOne);
         console.log(`varOne: ${varOne}`)
     } else if (varOne !== undefined) {
         bigDisplay.textContent += varOneText
         varOne = parseFloat(bigDisplay.textContent);
+        varOne = varOne.toString();
+        limitCharsDisplay(varOne);
+        varOne = parseFloat(varOne);
         console.log(`varOne: ${varOne}`)
     }
 };
@@ -71,10 +77,16 @@ function updateVarTwo (varTwoText) {
     if (varTwo === undefined) {
         clearDisplay(varTwoText);
         varTwo = parseFloat(bigDisplay.textContent);
+        varTwo = varTwo.toString();
+        limitCharsDisplay(varTwo);
+        varTwo = parseFloat(varTwo);
         console.log(`varTwo: ${varTwo}`)
     } else if (varTwo !== undefined) {
         bigDisplay.textContent += varTwoText
         varTwo = parseFloat(bigDisplay.textContent);
+        varTwo = varTwo.toString();
+        limitCharsDisplay(varTwo);
+        varTwo = parseFloat(varTwo);
         console.log(`varTwo: ${varTwo}`)
     }
 };
