@@ -49,10 +49,15 @@ function clearDisplay (text) {
     bigDisplay.textContent += text;
 };
 
-function limitCharsDisplay (maxValue) {
+function limitCharsDisplay(maxValue) {
+    console.log("Inside limitCharsDisplay function");
+    console.log("maxValue:", maxValue);
     if (maxValue.length > maxChars) {
-        maxValue = maxValue.substring(0, maxChars);
+        console.log("Exceeded character limit. Truncating...");
+        return maxValue.substring(0, maxChars);
     }
+    console.log("Within character limit. No need to truncate.");
+    return maxValue;
 };
 
 function updateVarOne (varOneText) {
@@ -60,14 +65,14 @@ function updateVarOne (varOneText) {
         clearDisplay(varOneText);
         varOne = parseFloat(bigDisplay.textContent);
         varOne = varOne.toString();
-        limitCharsDisplay(varOne);
+        varOne = limitCharsDisplay(varOne);
         varOne = parseFloat(varOne);
         console.log(`varOne: ${varOne}`)
     } else if (varOne !== undefined) {
         bigDisplay.textContent += varOneText
         varOne = parseFloat(bigDisplay.textContent);
         varOne = varOne.toString();
-        limitCharsDisplay(varOne);
+        varOne = limitCharsDisplay(varOne);
         varOne = parseFloat(varOne);
         console.log(`varOne: ${varOne}`)
     }
@@ -78,14 +83,14 @@ function updateVarTwo (varTwoText) {
         clearDisplay(varTwoText);
         varTwo = parseFloat(bigDisplay.textContent);
         varTwo = varTwo.toString();
-        limitCharsDisplay(varTwo);
+        varTwo = limitCharsDisplay(varTwo);
         varTwo = parseFloat(varTwo);
         console.log(`varTwo: ${varTwo}`)
     } else if (varTwo !== undefined) {
         bigDisplay.textContent += varTwoText
         varTwo = parseFloat(bigDisplay.textContent);
         varTwo = varTwo.toString();
-        limitCharsDisplay(varTwo);
+        varTwo = limitCharsDisplay(varTwo);
         varTwo = parseFloat(varTwo);
         console.log(`varTwo: ${varTwo}`)
     }
