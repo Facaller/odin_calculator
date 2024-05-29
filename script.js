@@ -3,7 +3,7 @@ let varOne;
 let varTwo;
 let operator;
 
-let maxChars = 12;
+let maxChars = 6;
 let operatorFlag = false;
 
 //event listeners & html elements
@@ -33,7 +33,8 @@ ops.forEach(op => {
 let equal = document.querySelector('.equal');
 equal.addEventListener('click', () => {
     if (varOne !== undefined && operator !== undefined && varTwo !== undefined) {
-        bigDisplay.textContent = operate (varOne, operator, varTwo);
+        bigDisplay.textContent = operate (varOne, operator, varTwo, maxChars);
+        limitBigDisplay (maxChars)
     }
 });
 
@@ -44,6 +45,13 @@ clear.addEventListener('click', () => {
 });
 
 // variables and operators in display
+
+function limitBigDisplay (maxChars) {
+    let currentChars = bigDisplay.textContent;
+    let limitedChars = limitCharsDisplay(currentChars, maxChars);
+    bigDisplay.textContent = limitedChars;
+};
+
 function clearDisplay (text) {
     bigDisplay.textContent = '';
     bigDisplay.textContent += text;
@@ -59,42 +67,30 @@ function limitCharsDisplay(maxValue) {
     console.log("Within character limit. No need to truncate.");
     return maxValue;
 };
-
-function updateVarOne (varOneText) {
+function updateVarOne(varOneText, maxChars) {
     if (varOne === undefined) {
         clearDisplay(varOneText);
         varOne = parseFloat(bigDisplay.textContent);
-        varOne = varOne.toString();
-        varOne = limitCharsDisplay(varOne);
-        varOne = parseFloat(varOne);
-        console.log(`varOne: ${varOne}`)
     } else if (varOne !== undefined) {
-        bigDisplay.textContent += varOneText
+        bigDisplay.textContent += varOneText;
         varOne = parseFloat(bigDisplay.textContent);
-        varOne = varOne.toString();
-        varOne = limitCharsDisplay(varOne);
-        varOne = parseFloat(varOne);
-        console.log(`varOne: ${varOne}`)
     }
+    // Convert varOne to string, limit the characters, and then convert back to float
+    varOne = parseFloat(limitCharsDisplay(varOne.toString(), maxChars));
+    console.log(`varOne: ${varOne}`);
 };
-
-function updateVarTwo (varTwoText) {
+function updateVarTwo(varTwoText, maxChars) {
     if (varTwo === undefined) {
         clearDisplay(varTwoText);
         varTwo = parseFloat(bigDisplay.textContent);
-        varTwo = varTwo.toString();
-        varTwo = limitCharsDisplay(varTwo);
-        varTwo = parseFloat(varTwo);
-        console.log(`varTwo: ${varTwo}`)
     } else if (varTwo !== undefined) {
-        bigDisplay.textContent += varTwoText
+        bigDisplay.textContent += varTwoText;
         varTwo = parseFloat(bigDisplay.textContent);
-        varTwo = varTwo.toString();
-        varTwo = limitCharsDisplay(varTwo);
-        varTwo = parseFloat(varTwo);
-        console.log(`varTwo: ${varTwo}`)
     }
+    varTwo = parseFloat(limitCharsDisplay(varTwo.toString(), maxChars));
+    console.log(`varOne: ${varTwo}`);
 };
+
 //need a second condition at else just to be safe (for multiple clicks on operators)
 function useOperator (mathOp) {
     if (operator === undefined) {
@@ -111,7 +107,7 @@ function useOperator (mathOp) {
 
 function continueCalc () {
     if (operator !== undefined && varOne !== undefined && varTwo !== undefined) {
-        bigDisplay.textContent = operate (varOne, operator, varTwo);
+        bigDisplay.textContent = operate (varOne, operator, varTwo, maxChars);
         varOne = parseFloat(bigDisplay.textContent);
         varTwo = undefined;
     }    
@@ -138,18 +134,32 @@ function multiply (a, b) {
 function divide (a, b) {
     return a / b
 };
-
 //calculation operation
-function operate (valueOne, operator, valueTwo) {
+function operate (valueOne, operator, valueTwo, maxChars) {
+    let result;
     if (operator === '+') {
-        return parseFloat(add(valueOne, valueTwo).toFixed(7));
+        result = parseFloat(add(valueOne, valueTwo).toFixed(7));
     } else if (operator === '-') {
-        return parseFloat(subtract(valueOne, valueTwo).toFixed(7));
+        result = parseFloat(subtract(valueOne, valueTwo).toFixed(7));
     } else if (operator === '*') {
-        return parseFloat(multiply(valueOne, valueTwo).toFixed(7));
+        result = parseFloat(multiply(valueOne, valueTwo).toFixed(7));
     } else if (operator === '/') {
-        return parseFloat(divide(valueOne, valueTwo).toFixed(7));
+        result = parseFloat(divide(valueOne, valueTwo).toFixed(7));
     }
-};
+    // Limit the display value
+    return limitCharsDisplay(result.toString(), maxChars);
+}
+
+// function operate (valueOne, operator, valueTwo,) {
+//     if (operator === '+') {
+//         return parseFloat(add(valueOne, valueTwo).toFixed(7));
+//     } else if (operator === '-') {
+//         return parseFloat(subtract(valueOne, valueTwo).toFixed(7));
+//     } else if (operator === '*') {
+//         return parseFloat(multiply(valueOne, valueTwo).toFixed(7));
+//     } else if (operator === '/') {
+//         return parseFloat(divide(valueOne, valueTwo).toFixed(7));
+//     }
+// };
 
 console.log(operate(5, '/', 5))
