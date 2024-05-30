@@ -19,6 +19,7 @@ nums.forEach(num => {
         } else if (operatorFlag === true) {
             updateVarTwo(numValue)
         }
+        limitBigDisplay(maxChars);
     });
 });
 
@@ -35,6 +36,8 @@ equal.addEventListener('click', () => {
     if (varOne !== undefined && operator !== undefined && varTwo !== undefined) {
         bigDisplay.textContent = operate (varOne, operator, varTwo, maxChars);
         limitBigDisplay (maxChars)
+        clearVars ();
+        //start looking here
     }
 });
 
@@ -52,21 +55,18 @@ function limitBigDisplay (maxChars) {
     bigDisplay.textContent = limitedChars;
 };
 
+function limitCharsDisplay(maxValue) {
+    if (maxValue.length > maxChars) {
+        return maxValue.substring(0, maxChars);
+    }
+    return maxValue;
+};
+
 function clearDisplay (text) {
     bigDisplay.textContent = '';
     bigDisplay.textContent += text;
 };
 
-function limitCharsDisplay(maxValue) {
-    console.log("Inside limitCharsDisplay function");
-    console.log("maxValue:", maxValue);
-    if (maxValue.length > maxChars) {
-        console.log("Exceeded character limit. Truncating...");
-        return maxValue.substring(0, maxChars);
-    }
-    console.log("Within character limit. No need to truncate.");
-    return maxValue;
-};
 function updateVarOne(varOneText, maxChars) {
     if (varOne === undefined) {
         clearDisplay(varOneText);
@@ -88,7 +88,7 @@ function updateVarTwo(varTwoText, maxChars) {
         varTwo = parseFloat(bigDisplay.textContent);
     }
     varTwo = parseFloat(limitCharsDisplay(varTwo.toString(), maxChars));
-    console.log(`varOne: ${varTwo}`);
+    console.log(`varTwo: ${varTwo}`);
 };
 
 //need a second condition at else just to be safe (for multiple clicks on operators)
@@ -114,6 +114,7 @@ function continueCalc () {
 };
 
 function clearVars () {
+    
     varOne = undefined;
     varTwo = undefined;
     operator = undefined;
