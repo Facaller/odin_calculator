@@ -37,7 +37,6 @@ equal.addEventListener('click', () => {
         bigDisplay.textContent = operate (varOne, operator, varTwo, maxChars);
         limitBigDisplay (maxChars)
         clearVars ();
-        //start looking here
     }
 });
 
@@ -48,7 +47,6 @@ clear.addEventListener('click', () => {
 });
 
 // variables and operators in display
-
 function limitBigDisplay (maxChars) {
     let currentChars = bigDisplay.textContent;
     let limitedChars = limitCharsDisplay(currentChars, maxChars);
@@ -79,6 +77,7 @@ function updateVarOne(varOneText, maxChars) {
     varOne = parseFloat(limitCharsDisplay(varOne.toString(), maxChars));
     console.log(`varOne: ${varOne}`);
 };
+
 function updateVarTwo(varTwoText, maxChars) {
     if (varTwo === undefined) {
         clearDisplay(varTwoText);
@@ -93,7 +92,11 @@ function updateVarTwo(varTwoText, maxChars) {
 
 //need a second condition at else just to be safe (for multiple clicks on operators)
 function useOperator (mathOp) {
-    if (operator === undefined) {
+    if (varOne === undefined && varTwo === undefined && operator === undefined && operatorFlag === false) {
+        varOne = parseFloat(bigDisplay.textContent);
+        operator = mathOp
+        operatorFlag = true;
+    } else if (operator === undefined) {
         operatorFlag = true;
         operator = mathOp
         console.log(`Mathop: ${operator}`)
@@ -114,7 +117,6 @@ function continueCalc () {
 };
 
 function clearVars () {
-    
     varOne = undefined;
     varTwo = undefined;
     operator = undefined;
@@ -135,6 +137,7 @@ function multiply (a, b) {
 function divide (a, b) {
     return a / b
 };
+
 //calculation operation
 function operate (valueOne, operator, valueTwo, maxChars) {
     let result;
@@ -149,7 +152,7 @@ function operate (valueOne, operator, valueTwo, maxChars) {
     }
     // Limit the display value
     return limitCharsDisplay(result.toString(), maxChars);
-}
+};
 
 // function operate (valueOne, operator, valueTwo,) {
 //     if (operator === '+') {
