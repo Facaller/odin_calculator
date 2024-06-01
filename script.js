@@ -149,6 +149,9 @@ function operate (valueOne, operator, valueTwo, maxChars) {
         result = parseFloat(multiply(valueOne, valueTwo).toFixed(7));
     } else if (operator === '/') {
         result = parseFloat(divide(valueOne, valueTwo).toFixed(7));
+        if (valueTwo === 0) {
+            return bigDisplay.textContent = 'lmao'
+        }
     }
     // Limit the display value
     return limitCharsDisplay(result.toString(), maxChars);
